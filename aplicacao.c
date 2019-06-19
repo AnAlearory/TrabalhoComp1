@@ -1,14 +1,15 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"matriz.h"
 
 int main(void){
 	//Variaveis
-	int mn1, mn2, i, j;
+	int mn1, mn2, i, j,novoElem;
 	int lin1, col1, lin2, col2;
 	char nomeBin1[20],nomeBin2[20];
 
 	//matrizes
-	int *mtrz1, *mtrz2;
+	float *mtrz1, *mtrz2,*mtrzRes;
 
 	//arquivos
 	FILE* arqBin1;
@@ -40,11 +41,14 @@ int main(void){
 				//recebe linhas e colunas da matriz
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
-					printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO CARREGA MATRIZ TECLADO
-					//FUNCAO IMPRIME MATRIZ
-					//DESTROI MATRIZ
+					//cria a matriz vazia
+					mtrz1 = criaMatriz (lin1, col1);
+					//carrega a matriz do teclado
+					carregaMatrizTeclado (mtrz1, lin1, col1);
+					//imprime a matriz ja preenchida
+					imprimeMatriz (mtrz1,lin1, col1);
+					//libera o espaço da matriz antes alocado
+					destroiMatriz(mtrz1);
 
 			break;
 			//ALTERA ELEMENTO MATRIZ
@@ -53,43 +57,50 @@ int main(void){
 				//recebe linhas e colunas da matriz
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
-				printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO CARREGA MATRIZ TECLADO
-					//FUNCAO TROCA ELEMENTO MATRIZ
-					//FUNCAO IMPRIME MATRIZ
-					//FUNCAO DESTROI MATRIZ
+				//cria a matriz e carrega ela do teclado
+				mtrz1 = criaMatriz(lin1,col1);
+				carregaMatrizTeclado(mtrz1,lin1,col1);
+				//pergunta qual posicao que quer ser mudada e o novo elemento
+				printf("digite a posicao do elemento e o novo elemento para troca: \n");
+				scanf("%d %d %d",&i,&j,&novoElem);
+				//altera o elemento na matriz
+				alteraElementoMatriz (mtrz1,lin1,col1, i, j, novoElem);
+
+				imprimeMatriz(mtrz1,lin1,col1);
+				destroiMatriz(mtrz1);
+
 			break;
 			//SALVA MATRIZ EM BINARIO
 			case 3:
 				system("cls");
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
-				printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO CARREGA MATRIZ TECLADO
-					//FUNCAO SALVA MATRIZ TECLADO
-					//FUNCAO DESTROI MATRIZ
+				getchar();
+				//recebe o nome do arquivo
+				printf("Digite o nome do arquivo que queira salvar(em .dat): ");
+				scanf("%19[^\n]",nomeBin1);
+
+				mtrz1 = criaMatriz(lin1,col1);
+				carregaMatrizTeclado(mtrz1,lin1,col1);
+				//chama a funcao para salvar a matriz
+				salvaMatrizBinario (mtrz1, lin1, col1, nomeBin1);
+				destroiMatriz(mtrz1);
 			break;
 			//SOMA MATRIZ
 			case 4:
 				system("cls");
-				printf("digite as dimencoes de linha e coluna da matriz 1: ");
+				printf("digite as dimencoes de linha e coluna das duas matrizes: ");
 				scanf("%d %d",&lin1,&col1);
-				printf("digite as dimencoes de linha e coluna da matriz 2: ");
-				scanf("%d %d",&lin2,&col2);
-				if(lin1 != lin2 && col1 != col2){
-					printf("As dimencoes das matrizes são diferentes, programa encerrado.");
-					return 0;
-				}else{
-					printf("%d %d teste \n",lin1,col1 );
-					printf("%d %d teste \n",lin2,col2 );
-					//FUNCAO CRIA MATRIZ 1
-					//FUNCAO CRIA MATRIZ 2
-					//FUNCAO SOMA MATRIZ
-					//FUNCAO IMPRIME MATRIZ RESULTADO
-					//FUNCAO DESTROI MATRIZ 1 2 E RESULTADO
-				}
+					mtrz1 = criaMatriz(lin1,col1);
+					mtrz2 = criaMatriz(lin1,col1);
+					mtrzRes = criaMatriz(lin1,col1);
+					carregaMatrizTeclado(mtrz1,lin1,col1);
+					carregaMatrizTeclado(mtrz2,lin1,col1);
+					mtrzRes = somaMatrizes (mtrz1, mtrz2, lin1, col1);
+					imprimeMatriz(mtrzRes,lin1,col1);
+					destroiMatriz(mtrz1);
+					destroiMatriz(mtrz2);
+					destroiMatriz(mtrzRes);
 			break;
 			//SOMA ELEMENTOS MATRIZ
 			case 5:
@@ -114,13 +125,16 @@ int main(void){
 					printf("O tamanho das linhas da primeira matriz são diferentes das colunas da matriz 2, programa encerrado.");
 					return 0;
 				}else{
-					printf("%d %d teste \n",lin1,col1 );
-					printf("%d %d teste \n",lin2,col2 );
-					//FUNCAO CRIA MATRIZ 1
-					//FUNCAO CRIA MATRIZ 2
-					//FUNCAO MULTIPLICA MATRIZ
-					//FUNCAO IMPRIME MATRIZ RESULTADO
-					//FUNCAO DESTROI MATRIZ 1 2 E RESULTADO
+					mtrz1 = criaMatriz(lin1,col1);
+					mtrz2 = criaMatriz(lin1,col1);
+					mtrzRes = criaMatriz(lin1,col1);
+					carregaMatrizTeclado(mtrz1,lin1,col1);
+					carregaMatrizTeclado(mtrz2,lin1,col1);
+					mtrzRes = multiplicaMatrizes (mtrz1, mtrz2, lin1, col1, col2);
+					imprimeMatriz(mtrzRes,lin1,col1);
+					destroiMatriz(mtrz1);
+					destroiMatriz(mtrz2);
+					destroiMatriz(mtrzRes);
 				}
 			break;
 			//TRANSPOR MATRIZ
@@ -195,13 +209,12 @@ int main(void){
 				//recebe o nome do arquivo binario
 				printf("digite o nome do arquivo binario: ");
 				scanf("%19[^\n]",nomeBin1);
+
 				//abre o arquivo para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
-					printf("%s teste \n",nomeBin1);
-					//FUNCAO CRIA MATRIZ ZERADA
-					//FUNCAO CARREGA MATRIZ BINARIO
-					//FUNCAO IMPRIME MATRIZ
-					//DESTROI MATRIZ
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+				imprimeMatriz(mtrz1,lin1,col1);
+				destroiMatriz(mtrz1);
 
 			break;
 			//ALTERA ELEMENTO MATRIZ

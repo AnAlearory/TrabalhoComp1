@@ -26,7 +26,7 @@ void carregaMatrizTeclado (float * matriz, int lin, int col);
 /* Entrada: o descritor do arquivo binario de onde a matriz sera carregada (previamente aberto para leitura binaria) */ 
 /* Saida: a matriz criada e carregada do arquivo de entrada */
 /* Restricao: assume que o arquivo de entrada tem o seguinte conteudo: numero de linhas da matriz (int), numero de colunas da matriz (int), sequencia de elementos da matriz, linha por linha (float) */ 
-float * carregaMatrizBinario (FILE * descArquivo);
+float * carregaMatrizBinario (FILE * descArquivo,int *lin,int *col);
 
 /* Imprime uma matriz na tela */ 
 /* Entrada: uma matriz e suas dimensoes */ 
@@ -45,7 +45,7 @@ void salvaMatrizBinario (float * matriz, int lin, int col, char * nomeArquivo);
 /* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento a ser lido */ 
 /* Saida: o elemento lido e a sinalizacao se a operacao ocorreu com sucesso ou nao */
 /* Descricao: se a posicao (i,j) nao existir na matriz, a funcao devera apenas retornar 0, caso a posicao exista, a funcao devera copiar o valor do elemento para a variavel passada por referencia e retornar 1 */ 
-unsigned short int leElementoMatriz (float * matriz, int lin, int col, int i, int j, float * elem);
+//unsigned short int leElementoMatriz (float * matriz, int lin, int col, int i, int j, float * elem);
 
 /* Altera um elemento da matriz */
 /* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento a ser alterado e o novo elemento */ 
@@ -68,25 +68,25 @@ float * multiplicaMatrizes (float * matA, float * matB, int linA, int colA, int 
 /* Gera a matriz transposta da matriz dada */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: a matriz resultante da transposicao da matriz de entrada */
-float * transpostaMatriz (float * mat, int lin, int col);
+//float * transpostaMatriz (float * mat, int lin, int col);
 
 /* Verifica se a matriz de entrada eh uma matriz identidade */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: 1 se eh uma matriz identidade e 0 caso contrario */
-unsigned short int ehMatrizIdentidade (float * mat, int lin, int col);
+//unsigned short int ehMatrizIdentidade (float * mat, int lin, int col);
 
 /* Verifica se a matriz de entrada eh uma matriz triangular superior */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: 1 se eh uma matriz triangular superior e 0 caso contrario */
-unsigned short int ehMatrizTriangularSuperior (float * mat, int lin, int col);
+//unsigned short int ehMatrizTriangularSuperior (float * mat, int lin, int col);
 
 /* Verifica se a matriz de entrada eh uma matriz triangular inferior */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: 1 se eh uma matriz triangular inferior e 0 caso contrario */
-unsigned short int ehMatrizTriangularInferior (float * mat, int lin, int col);
+//unsigned short int ehMatrizTriangularInferior (float * mat, int lin, int col);
 
 /* Soma os elementos adjacentes a um dado elemento da matriz */
 /* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento dereferencia */ 
 /* Saida: a soma dos valores dos elementos da matriz adjacentes ao elemento dado e a sinalizacao se a operacao ocorreu com sucesso ou nao */
 /* Descricao: se a posicao (i,j) nao existir na matriz, a funcao devera apenas retornar 0, caso a posicao exista, a funcao devera copiar a soma calculada para a variavel passada por referencia e retornar 1 */ 
-unsigned short int somaAdjacentesElementoMatriz (float * matriz, int lin, int col, int i, int j, float * soma);
+//unsigned short int somaAdjacentesElementoMatriz (float * matriz, int lin, int col, int i, int j, float * soma);
