@@ -68,7 +68,7 @@ float * multiplicaMatrizes (float * matA, float * matB, int linA, int colA, int 
 /* Gera a matriz transposta da matriz dada */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: a matriz resultante da transposicao da matriz de entrada */
-//float * transpostaMatriz (float * mat, int lin, int col);
+float * transpostaMatriz (float * mat, int lin, int col);
 
 /* Verifica se a matriz de entrada eh uma matriz identidade */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
@@ -89,4 +89,4 @@ float * multiplicaMatrizes (float * matA, float * matB, int linA, int colA, int 
 /* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento dereferencia */ 
 /* Saida: a soma dos valores dos elementos da matriz adjacentes ao elemento dado e a sinalizacao se a operacao ocorreu com sucesso ou nao */
 /* Descricao: se a posicao (i,j) nao existir na matriz, a funcao devera apenas retornar 0, caso a posicao exista, a funcao devera copiar a soma calculada para a variavel passada por referencia e retornar 1 */ 
-//unsigned short int somaAdjacentesElementoMatriz (float * matriz, int lin, int col, int i, int j, float * soma);
+unsigned short int somaAdjacentesElementoMatriz (float * matriz, int lin, int col, int i, int j, float * soma);

@@ -1,4 +1,4 @@
-#include<stdio.h>
+ #include<stdio.h>
 #include<stdlib.h>
 
 
@@ -141,25 +141,83 @@ float * somaMatrizes (float * matA, float * matB, int lin, int col){
     return matriz;
 }
 
+/* Soma os elementos adjacentes a um dado elemento da matriz */
+/* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento dereferencia */ 
+/* Saida: a soma dos valores dos elementos da matriz adjacentes ao elemento dado e a sinalizacao se a operacao ocorreu com sucesso ou nao */
+/* Descricao: se a posicao (i,j) nao existir na matriz, a funcao devera apenas retornar 0, caso a posicao exista, a funcao devera copiar a soma calculada para a variavel passada por referencia e retornar 1 */ 
+unsigned short int somaAdjacentesElementoMatriz (float * matriz, int lin, int col, int i, int j, float * soma){
+		//topo esquerda
+		if(i == 0 && j == 0){
+			*soma = matriz[i*col+j+1] + matriz[i*col+j+lin] + matriz[i*col+j+lin+1];
+		}
+		//fundo esquerda
+		else if(i == lin-1 && j == 0){
+			*soma = matriz[i*col+j-lin] + matriz[i*col+j-lin+1] + matriz[i*col+j+1];
+		}
+		//topo direita
+		else if(i == 0 && j == col-1){
+			*soma = matriz[i*col+j-1] + matriz[i*col+j+lin-1] + matriz[i*col+j+lin];
+		}
+		//fundo direita
+		else if(i == lin-1 && j == col-1){
+			*soma = matriz[i*col+j-1] + matriz[i*col+j-lin-1] + matriz[i*col+j-lin];
+		}
+		//meio direita
+		else if(j == col-1){		
+			*soma = matriz[i*col+j-lin] + matriz[i*col+j-lin-1] + matriz[i*col+j-1] + matriz[i*col+j+lin-1] + matriz[i*col+j+lin];
+		}
+		//meio baixo
+		else if(i == lin-1){
+			*soma = matriz[i*col+j-1] + matriz[i*col+j-lin-1] + matriz[i*col+j-lin] + matriz[i*col+j-lin+1] + matriz[i*col+j+1];
+		}
+		//meio esquerda
+		else if(j == 0){
+			*soma = matriz[i*col+j-lin] + matriz[i*col+j-lin+1] + matriz[i*col+j+1] + matriz[i*col+j+lin] + matriz[i*col+j+lin+1];
+		}
+		//meio cima
+		else if(i == 0){
+			*soma = matriz[i*col+j-1] + matriz[i*col+j+1] + matriz[i*col+j+lin-1] + matriz[i*col+j+lin] + matriz[i*col+j+lin+1];
+		}
+		//meio
+		else{
+			*soma = matriz[i*col+j-1] + matriz[i*col+j-lin-1] + matriz[i*col+j-lin] + matriz[i*col+j-lin+1] + matriz[i*col+j+1] + matriz[i*col+j+lin+1] + matriz[i*col+j+lin] + matriz[i*col+j+lin-1];
+		}
+	return 0;
+}
+
+
 /* Multiplica duas matrizes */
 /* Entrada: as duas matrizes e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: a matriz resultante da multiplicacao das matrizes de entrada */
 /* Restricao: assume que o numero de colunas da primeira matriz eh igual ao numero de linhas da segunda matriz */ 
 float * multiplicaMatrizes (float * matA, float * matB, int linA, int colA, int colB){
-	int i,j,k;
-    float mult,soma = 0;
     float *matriz;
     matriz = (float*)malloc(sizeof(float)*linA*colA);
 
-    for(i=0;i<linA;i++){
-        for(j=0;j<colB;j++){
-            for(k=0;k<colA;k++){
-                mult = *(matA+(i*colA+k))* *(matB+k*colB);
-                soma = soma+mult;
+    for (int i = 0; i < linA ; i++){
+        for (int j = 0; j < colB; j++){
+            matriz[(i*colB)+j]=0;
+               	for (int k = 0; k < colA; k++) {
+                    matriz[(i*colB)+j]=matriz[(i*colB)+j] + matA[(i*colA)+k] * matB[(k*colB)+j];
+                }
             }
-            matriz[i*colA+j] = soma;
-            soma=0;
         }
-    }
+
     return matriz;
+}
+
+/* Gera a matriz transposta da matriz dada */
+/* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
+/* Saida: a matriz resultante da transposicao da matriz de entrada */
+float * transpostaMatriz (float * mat, int lin, int col){
+	float *matrizRes;
+	matrizRes = (float*)malloc(sizeof(float)*lin*col);
+
+	for(int i = 0; i < lin; i++){
+		for(int j = 0; j < col; j++){
+			matrizRes[i*col+j] = mat[i*lin+j];
+		}
+	}
+
+	return matrizRes;
 }

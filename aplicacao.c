@@ -6,6 +6,7 @@ int main(void){
 	//Variaveis
 	int mn1, mn2, i, j,novoElem;
 	int lin1, col1, lin2, col2;
+	float soma;
 	char nomeBin1[20],nomeBin2[20];
 
 	//matrizes
@@ -31,7 +32,7 @@ int main(void){
 		system("cls"); //limpa a tela do usuario
 		//sub-menu
 		puts("Escolha a baixo o que deseja fazer:");
-		printf("1. Imprimir a matriz na tela \n2. Alterar um elemento da matriz \n3. Salvar a matriz em um arquivo binario \n4. somar a matriz \n5.somar elementos adjacentes da matriz \n6. multiplicar matriz \n7. transpor a matriz \n8. verificar matriz identidade \n9. verificar matriz triangular superior \n10. verificar matriz triangular inferior \n11.sair \n");
+		printf("1. Imprimir a matriz na tela \n2. Alterar um elemento da matriz \n3. Salvar a matriz em um arquivo binario \n4. somar a matriz \n5. somar elementos adjacentes da matriz \n6. multiplicar matriz \n7. transpor a matriz \n8. verificar matriz identidade \n9. verificar matriz triangular superior \n10. verificar matriz triangular inferior \n11.sair \n");
 		scanf("%d",&mn2);
 		//switch do menu 2
 		switch(mn2){
@@ -107,12 +108,16 @@ int main(void){
 				system("cls");
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
-				printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO LE MATRIZ
-					//FUNCAO SOMA ELEMENTOS MATRIZ
-					//FUNCAO IMPRIME MATRIZ RESULTADO
-					//FUNCAO DESTROI MATRIZ
+
+				mtrz1 = criaMatriz(lin1,col1);
+				carregaMatrizTeclado(mtrz1,lin1,col1);
+
+				printf("Digite a posicao do elemento para soma das adjacencias:");
+				scanf("%d %d",&i,&j);
+
+				somaAdjacentesElementoMatriz (mtrz1, lin1, col1, i, j, &soma);
+				printf("a soma eh: %0.2f \n", soma);
+				destroiMatriz(mtrz1);
 			break;
 			//MULTIPLICA MATRIZ
 			case 6:
@@ -130,6 +135,7 @@ int main(void){
 					mtrzRes = criaMatriz(lin1,col1);
 					carregaMatrizTeclado(mtrz1,lin1,col1);
 					carregaMatrizTeclado(mtrz2,lin1,col1);
+					//chama a funcao para multiplicar as matrizes 1 e 2 e retorna na matriz resultante
 					mtrzRes = multiplicaMatrizes (mtrz1, mtrz2, lin1, col1, col2);
 					imprimeMatriz(mtrzRes,lin1,col1);
 					destroiMatriz(mtrz1);
@@ -143,11 +149,13 @@ int main(void){
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
 				printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO CRIA MATRIZ ZERO
-					//FUNCAO TRANSPOR MATRIZ
-					//FUNCAO IMPRIME MATRIZ 2
-					//FUNCAO DESTROI MATRIZ 1 E 2
+					mtrz1 = criaMatrizZero (lin1, col1);
+					carregaMatrizTeclado(mtrz1,lin1,col1);
+					//chama a funcao para transpor a matriz 1 para a 2
+					mtrz2 =transpostaMatriz (mtrz1, lin1, col1);
+					imprimeMatriz(mtrz2,col1,lin1);
+					destroiMatriz(mtrz1);
+					destroiMatriz(mtrz2);
 
 			break;
 			//VERIFICA MATRIZ IDENTIDADE
