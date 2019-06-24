@@ -221,3 +221,49 @@ float * transpostaMatriz (float * mat, int lin, int col){
 
 	return matrizRes;
 }
+
+/* Verifica se a matriz de entrada eh uma matriz identidade */
+/* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
+/* Saida: 1 se eh uma matriz identidade e 0 caso contrario */  //resticao lin e col diferentes
+unsigned short int ehMatrizIdentidade (float * mat, int lin, int col){
+	for(int i = 0; i < lin; i++){
+		for(int j = 0; j < col;j++){
+			if(i == j && mat[i*col+j] != 1){
+				return 0;
+			}
+			if(i != j && mat[i*col+j] != 0){
+				return 0;	
+			}
+		}
+	}
+	return 1;
+}
+
+/* Verifica se a matriz de entrada eh uma matriz triangular superior */
+/* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
+/* Saida: 1 se eh uma matriz triangular superior e 0 caso contrario */
+unsigned short int ehMatrizTriangularSuperior (float * mat, int lin, int col){
+	for(int i = 0; i < lin; i++){
+		for(int j = 0; j < col;j++){
+			if(i > j && i != j && mat[i*col+j] != 0){
+				return 0;
+			}
+		}
+	}
+	return 1;
+
+}
+
+/* Verifica se a matriz de entrada eh uma matriz triangular inferior */
+/* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
+/* Saida: 1 se eh uma matriz triangular inferior e 0 caso contrario */
+unsigned short int ehMatrizTriangularInferior (float * mat, int lin, int col){
+	for(int i = 0; i < lin; i++){
+		for(int j = 0; j < col;j++){
+			if(i < j && i != j && mat[i*col+j] != 0){
+				return 0;
+			}
+		}
+	}
+	return 1;
+}

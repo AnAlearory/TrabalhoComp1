@@ -163,33 +163,43 @@ int main(void){
 				system("cls");
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
-				printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO MATRIZ IDENTIDADE
-					//RESULTADO
-					//FUNCAO DESTROI MATRIZ
+					mtrz1 = criaMatriz(lin1,col1);
+					carregaMatrizTeclado(mtrz1,lin1,col1);
+					if((ehMatrizIdentidade (mtrz1, lin1, col1) == 1)){
+						printf("e matriz identidade! \n");
+					}else{
+						printf("nao e matriz identidade! \n");
+					}
+					destroiMatriz(mtrz1);
+
 			break;
 			//VERIFICA MATRIZ TRIANGULAR SUPERIOR
 			case 9:
 				system("cls");
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
-				printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO MATRIZ TRIANGULAR SUPERIOR
-					//RESULTADO
-					//FUNCAO DESTROI MATRIZ
+					mtrz1 = criaMatriz(lin1,col1);
+					carregaMatrizTeclado(mtrz1,lin1,col1);
+					if((ehMatrizTriangularSuperior (mtrz1, lin1, col1)) == 1){
+						printf("eh matriz triangular superior \n");
+					}else{
+						printf("nao eh matriz triangular superior \n");
+					}
+					destroiMatriz(mtrz1);
 			break;
 			//VERIFICA MATRIZ TRIANGULAR INFERIOR		
 			case 10:
 				system("cls");
 				printf("digite as dimencoes de linha e coluna da matriz: ");
 				scanf("%d %d",&lin1,&col1);
-				printf("%d %d teste \n",lin1,col1 );
-					//FUNCAO CRIA MATRIZ
-					//FUNCAO MATRIZ TRIANGULAR INFERIOR
-					//RESULTADO
-					//FUNCAO DESTROI MATRIZ
+					mtrz1 = criaMatriz(lin1,col1);
+					carregaMatrizTeclado(mtrz1,lin1,col1);
+					if((ehMatrizTriangularInferior(mtrz1, lin1, col1)) == 1){
+						printf("eh matriz triangular inferior \n");
+					}else{
+						printf("nao eh matriz triangular inferior \n");
+					}
+					destroiMatriz(mtrz1);
 			break;
 			//SAIR
 			case 11:
@@ -223,8 +233,9 @@ int main(void){
 				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
 				imprimeMatriz(mtrz1,lin1,col1);
 				destroiMatriz(mtrz1);
-
+				fclose(arqBin1);
 			break;
+
 			//ALTERA ELEMENTO MATRIZ
 			case 2:
 				system("cls");
@@ -234,13 +245,18 @@ int main(void){
 				scanf("%19[^\n]",nomeBin1);
 				//abre o arquivo para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
-				printf("%s teste \n",nomeBin1);
-					//FUNCAO CRIA MATRIZ ZERADA
-					//FUNCAO CARREGA MATRIZ BINARIA
-					//FUNCAO TROCA ELEMENTO MATRIZ
-					//FUNCAO IMPRIME MATRIZ
-					//FUNCAO DESTROI MATRIZ
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+
+				printf("digite a posicao do elemento e o novo elemento para troca: \n");
+				scanf("%d %d %d",&i,&j,&novoElem);
+				alteraElementoMatriz (mtrz1, lin1, col1, i, j, novoElem);
+				salvaMatrizBinario(mtrz1,lin1,col1,nomeBin1);
+
+				imprimeMatriz(mtrz1,lin1,col1);
+				destroiMatriz(mtrz1);
+				fclose(arqBin1);
 			break;
+
 			//SOMA MATRIZ
 			case 3:
 				system("cls");
@@ -248,22 +264,27 @@ int main(void){
 				//recebe o nome dos dois arquivos binarios
 				printf("digite o nome do primeiro arquivo binario: ");
 				scanf("%19[^\n]",nomeBin1);
+				getchar();
 				printf("digite o nome do segundo arquivo binario: ");
 				scanf("%19[^\n]",nomeBin2);
+				getchar();
 				//abre os arquivos para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
 				arqBin2 = fopen(nomeBin2,"rb");
-				//verifica se a dimensoes são iguais
-					printf("%s teste \n",nomeBin1);
-					printf("%s teste \n",nomeBin2);
-					//FUNCAO CRIA MATRIZ ZERADA 1
-					//FUNCAO CARREGA MATRIZ BINARIA 1
-					//FUNCAO CRIA MATRIZ ZERADA 2
-					//FUNCAO CARREGA MATRIZ BINARIA 2
-					//FUNCAO SOMA MATRIZ
-					//FUNCAO IMPRIME MATRIZ RESULTADO
-					//FUNCAO DESTROI MATRIZ 1 2 E RESULTADO
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+				mtrz2 = carregaMatrizBinario(arqBin2,&lin1,&col1);
+				mtrzRes = criaMatrizZero(lin1,col1);
+
+				mtrzRes = somaMatrizes(mtrz1,mtrz2,lin1,col1);
+				imprimeMatriz(mtrzRes,lin1,col1);
+
+				destroiMatriz(mtrz1);
+				destroiMatriz(mtrz2);
+				destroiMatriz(mtrzRes);
+				fclose(arqBin1);
+				fclose(arqBin2);
 			break;
+
 			//SOMA ELEMENTOS MATRIZ
 			case 4:
 				system("cls");
@@ -271,19 +292,21 @@ int main(void){
 				//recebe o nome do arquivo binario
 				printf("digite o nome do arquivo binario: ");
 				scanf("%19[^\n]",nomeBin1);
+
 				//recebe a posiçao do elemento para somar suas adjacencias
 				printf("digite a posicao do elemento para a soma(Ex: 1 2): ");
 				scanf("%d %d",&i,&j);
+
 				//abre o arquivo para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
-				printf("%s teste \n",nomeBin1);
-					//FUNCAO CRIA MATRIZ ZERADA
-					//FUNCAO CARREGA MATRIZ BINARIA
-					//FUNCAO LE ELEMENTO MATRIZ
-					//FUNCAO SOMA ELEMENTOS MATRIZ
-					//FUNCAO IMPRIME MATRIZ RESULTADO
-					//FUNCAO DESTROI MATRIZ
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+				//FUNCAO LE ELEMENTO MATRIZ
+				somaAdjacentesElementoMatriz (mtrz1, lin1, col1, i, j, &soma);
+				printf("a soma eh: %0.2f \n", soma);
+				destroiMatriz(mtrz1);
+				fclose(arqBin1);
 			break;
+
 			//MULTIPLICA MATRIZ
 			case 5:
 				system("cls");
@@ -291,21 +314,27 @@ int main(void){
 				//recebe o nome dos dois arquivos binarios
 				printf("digite o nome do primeiro arquivo binario: ");
 				scanf("%19[^\n]",nomeBin1);
+				getchar();
 				printf("digite o nome do segundo arquivo binario: ");
 				scanf("%19[^\n]",nomeBin2);
+				getchar();
+
 				//abre os arquivos para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
 				arqBin2 = fopen(nomeBin2,"rb");
 
-					printf("%s teste \n",nomeBin1);
-					printf("%s teste \n",nomeBin2);
-					//FUNCAO CRIA MATRIZ ZERADA 1
-					//FUNCAO CARREGA MATRIZ BINARIA 1
-					//FUNCAO CRIA MATRIZ 2
-					//FUNCAO CARREGA MATRIZ BINARIA 2
-					//FUNCAO MULTIPLICA MATRIZ
-					//FUNCAO IMPRIME MATRIZ RESULTADO
-					//FUNCAO DESTROI MATRIZ 1 2 E RESULTADO
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+				mtrz2 = carregaMatrizBinario(arqBin2,&lin2,&col2);
+				mtrzRes = criaMatrizZero(lin1,col1);
+				
+				mtrzRes = multiplicaMatrizes (mtrz1, mtrz2, lin1, col1, col2);
+
+				imprimeMatriz(mtrzRes,lin1,col1);
+				destroiMatriz(mtrz1);
+				destroiMatriz(mtrz2);
+				destroiMatriz(mtrzRes);
+				fclose(arqBin1);
+				fclose(arqBin2);
 			break;
 			//TRANSPOR MATRIZ
 			case 6:
@@ -314,6 +343,8 @@ int main(void){
 				//recebe o nome do arquivo binario
 				printf("digite o nome do arquivo binario: ");
 				scanf("%19[^\n]",nomeBin1);
+				getchar();
+
 				//abre o arquivo para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
 				printf("%s teste \n",nomeBin1);
@@ -332,14 +363,21 @@ int main(void){
 				//recebe o nome do arquivo binario
 				printf("digite o nome do arquivo binario: ");
 				scanf("%19[^\n]",nomeBin1);
+				getchar();
+
 				//abre o arquivo para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
-				printf("%s teste \n",nomeBin1);
-					//FUNCAO CRIA MATRIZ ZERADA
-					//FUNCAO CARREGA MATRIZ BINARIA
-					//FUNCAO MATRIZ IDENTIDADE
-					//RESULTADO
-					//FUNCAO DESTROI MATRIZ
+				
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+
+				if((ehMatrizIdentidade (mtrz1, lin1, col1) == 1)){
+					printf("e matriz identidade! \n");
+				}else{
+					printf("nao e matriz identidade! \n");
+				}
+
+				destroiMatriz(mtrz1);
+				fclose(arqBin1);
 			break;
 			//VERIFICA MATRIZ TRIANGULAR SUPERIOR
 			case 8:
@@ -350,12 +388,17 @@ int main(void){
 				scanf("%19[^\n]",nomeBin1);
 				//abre o arquivo para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
-				printf("%s teste \n",nomeBin1);
-					//FUNCAO CRIA MATRIZ ZERADA
-					//FUNCAO CARREGA MATRIZ BINARIA
-					//FUNCAO MATRIZ TRIANGULAR SUPERIOR
-					//RESULTADO
-					//FUNCAO DESTROI MATRIZ
+				
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+				
+				if((ehMatrizTriangularSuperior (mtrz1, lin1, col1)) == 1){
+					printf("eh matriz triangular superior \n");
+				}else{
+					printf("nao eh matriz triangular superior \n");
+				}
+
+				destroiMatriz(mtrz1);
+				fclose(arqBin1);
 			break;
 			//VERIFICA MATRIZ TRIANGULAR INFERIOR		
 			case 9:
@@ -366,12 +409,18 @@ int main(void){
 				scanf("%19[^\n]",nomeBin1);
 				//abre o arquivo para leitura binaria
 				arqBin1 = fopen(nomeBin1,"rb");
-				printf("%s teste \n",nomeBin1);
-					//FUNCAO CRIA MATRIZ ZERADA
-					//FUNCAO CARREGA MATRIZ BINARIA
-					//FUNCAO MATRIZ TRIANGULAR INFERIOR
-					//RESULTADO
-					//FUNCAO DESTROI MATRIZ
+				
+				mtrz1 = carregaMatrizBinario(arqBin1,&lin1,&col1);
+					
+				if((ehMatrizTriangularInferior(mtrz1, lin1, col1)) == 1){
+					printf("eh matriz triangular inferior \n");
+				}else{
+					printf("nao eh matriz triangular inferior \n");
+				}
+
+				destroiMatriz(mtrz1);
+				fclose(arqBin1);
+
 			break;
 			//SAIR
 			case 10:

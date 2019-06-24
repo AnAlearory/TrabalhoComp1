@@ -73,17 +73,17 @@ float * transpostaMatriz (float * mat, int lin, int col);
 /* Verifica se a matriz de entrada eh uma matriz identidade */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: 1 se eh uma matriz identidade e 0 caso contrario */
-//unsigned short int ehMatrizIdentidade (float * mat, int lin, int col);
+unsigned short int ehMatrizIdentidade (float * mat, int lin, int col);
 
 /* Verifica se a matriz de entrada eh uma matriz triangular superior */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: 1 se eh uma matriz triangular superior e 0 caso contrario */
-//unsigned short int ehMatrizTriangularSuperior (float * mat, int lin, int col);
+unsigned short int ehMatrizTriangularSuperior (float * mat, int lin, int col);
 
 /* Verifica se a matriz de entrada eh uma matriz triangular inferior */
 /* Entrada: a matriz e suas dimensoes (numero de linhas e colunas) */ 
 /* Saida: 1 se eh uma matriz triangular inferior e 0 caso contrario */
-//unsigned short int ehMatrizTriangularInferior (float * mat, int lin, int col);
+unsigned short int ehMatrizTriangularInferior (float * mat, int lin, int col);
 
 /* Soma os elementos adjacentes a um dado elemento da matriz */
 /* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento dereferencia */ 
