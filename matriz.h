@@ -45,7 +45,7 @@ void salvaMatrizBinario (float * matriz, int lin, int col, char * nomeArquivo);
 /* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento a ser lido */ 
 /* Saida: o elemento lido e a sinalizacao se a operacao ocorreu com sucesso ou nao */
 /* Descricao: se a posicao (i,j) nao existir na matriz, a funcao devera apenas retornar 0, caso a posicao exista, a funcao devera copiar o valor do elemento para a variavel passada por referencia e retornar 1 */ 
-//unsigned short int leElementoMatriz (float * matriz, int lin, int col, int i, int j, float * elem);
+unsigned short int leElementoMatriz (float * matriz, int lin, int col, int i, int j, float * elem);
 
 /* Altera um elemento da matriz */
 /* Entrada: uma matriz, suas dimensoes, os indices (i,j) do elemento a ser alterado e o novo elemento */ 
